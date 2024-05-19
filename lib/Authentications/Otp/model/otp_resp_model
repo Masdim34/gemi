@@ -1,0 +1,49 @@
+// To parse this JSON data, do
+//
+//     final otpRespModel = otpRespModelFromJson(jsonString);
+
+import 'dart:convert';
+
+OtpRespModel otpRespModelFromJson(String str) => OtpRespModel.fromJson(json.decode(str));
+
+String otpRespModelToJson(OtpRespModel data) => json.encode(data.toJson());
+
+class OtpRespModel {
+    String? status;
+    String? message;
+    Data? data;
+
+    OtpRespModel({
+        this.status,
+        this.message,
+        this.data,
+    });
+
+    factory OtpRespModel.fromJson(Map<String, dynamic> json) => OtpRespModel(
+        status: json["status"],
+        message: json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": data?.toJson(),
+    };
+}
+
+class Data {
+    String? token;
+
+    Data({
+        this.token,
+    });
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        token: json["token"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "token": token,
+    };
+}
